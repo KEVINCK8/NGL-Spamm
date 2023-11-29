@@ -1,7 +1,6 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const path = require('path');
-const browser = await puppeteer.launch({ headless: "new" });
 
 const app = express();
 
@@ -10,7 +9,6 @@ app.use(express.static('public'));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
-
 });
 
 app.get('/inviato.html', (req, res) => {
@@ -20,8 +18,7 @@ app.get('/inviato.html', (req, res) => {
 app.post('/avviaAutomazione', async (req, res) => {
   const { link, numeroCicli, messaggio_html } = req.body;
 
-
-  if (isNaN( numeroCicli) || numeroCicli <= 0 || numeroCicli > 99) {
+  if (isNaN(numeroCicli) || numeroCicli <= 0 || numeroCicli > 99) {
     res.status(400).send('Il numero di cicli non è valido. Deve essere compreso tra 1 e 99.');
     return;
   }
@@ -31,8 +28,6 @@ app.post('/avviaAutomazione', async (req, res) => {
   try {
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
-
-
 
     for (let i = 0; i < numeroCicli; i++) {
       await page.goto(link, {
