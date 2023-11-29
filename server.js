@@ -1,6 +1,7 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const path = require('path');
+const browser = await puppeteer.launch({ headless: "new" });
 
 const app = express();
 
