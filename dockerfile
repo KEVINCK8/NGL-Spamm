@@ -1,3 +1,7 @@
+FROM puppeteer/puppeteer:latest
+
+RUN apt-get update && apt-get install -y chromium
+
 # Usa l'immagine Docker di Puppeteer
 FROM ghcr.io/puppeteer/puppeteer:21.5.2
 
