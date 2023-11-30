@@ -1,13 +1,20 @@
-docker pull ghcr.io/puppeteer/puppeteer:21.5.2
+# Usa l'immagine Docker di Puppeteer
+FROM ghcr.io/puppeteer/puppeteer:21.5.2
 
-
-
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
-
+# Crea e imposta la directory di lavoro
 WORKDIR /usr/src/app
 
+# Copia il file package.json e package-lock.json
 COPY package*.json ./
+
+# Installa le dipendenze
 RUN npm ci
+
+# Copia il resto del codice nell'immagine Docker
 COPY . .
-CMD [ "node", "server.js" ]
+
+# Esponi la porta su cui il tuo server Node.js sarà in ascolto
+EXPOSE 3000
+
+# Comando per avviare l'applicazione
+CMD ["node", "server.js"]
