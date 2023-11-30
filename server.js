@@ -26,7 +26,10 @@ app.post('/avviaAutomazione', async (req, res) => {
   const delayBetweenInteractions = 3500;
 
   try {
-    const browser = await puppeteer.launch({ headless: 'new' }); // Utilizza la nuova modalità headless
+    const browser = await puppeteer.launch({
+      headless: true,
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium-browser',
+    });
     const page = await browser.newPage();
 
     for (let i = 0; i < numeroCicli; i++) {
